@@ -13,7 +13,7 @@ prefix=前缀键=`Ctrl+b`=@
 
 - 开一个session
   - tmux
-  - tmux -s <session-name>
+  - tmux new -s <session-name>
 - 暂退session
   - @，d
 - 列出所有session
