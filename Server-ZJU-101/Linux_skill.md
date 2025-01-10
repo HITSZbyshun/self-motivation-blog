@@ -90,3 +90,12 @@
 
 
 
+## 卸载
+
+- 搜索卸载软件名称
+  - `sudo dpkg --list | grep <some_key_words>`
+- 卸载程序和配置文件
+  - `sudo apt --purge remove <programname>`
+- 仅卸载程序
+  - `sudo apt remove <programname>`
+
