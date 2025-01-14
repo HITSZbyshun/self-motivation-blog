@@ -80,7 +80,188 @@
     print(rand_perm_int32)  # 输出类似于 tensor([4, 2, 0, 3, 1], dtype=torch.int32)
     ```
 
-## split
+
+
+## torch.randint
+
+- `torch.randint` 是 PyTorch 中用于生成随机整数张量的函数
+
+- 签名
+
+  - ```python
+    torch.randint(low, high, size, *, generator=None, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False) → Tensor
+    ```
+
+- 参数说明
+
+  - **low**：生成随机整数的最小值（包含），默认为0。如果只传入一个参数，则该参数被视为`high`，`low`默认为0。
+  - **high**：生成随机整数的最大值（不包含）。例如，`torch.randint(0, 5, (3,))` 会生成一个形状为 `(3,)` 的张量，其元素值在 `[0, 5)` 范围内。
+  - **size**：生成的张量的形状，可以是一个整数或整数元组。例如，`(3,)` 表示生成一个一维张量，长度为3；`(2, 3)` 表示生成一个二维张量，形状为2行3列。
+  - **generator**：一个`torch.Generator`对象，用于指定随机数生成器。如果不指定，则使用默认的全局随机数生成器。
+  - **out**：一个可选的输出张量，如果指定，则将结果存储在该张量中，而不是创建一个新的张量。
+  - **dtype**：生成的张量的数据类型，默认为`torch.int64`。可以指定为`torch.int32`、`torch.int16`等。
+  - **layout**：张量的布局，默认为`torch.strided`，表示常规的张量布局。
+  - **device**：生成的张量所在的设备，默认为CPU。可以指定为`'cuda'`或其他设备。
+  - **requires_grad**：是否为张量启用梯度计算，默认为`False`。
+
+- 返回值
+
+  - 返回一个指定形状和数据类型的张量，其元素值为在 `[low, high)` 范围内的随机整数。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 生成一个形状为 (3,) 的张量，元素值在 [0, 5) 范围内
+    tensor1 = torch.randint(0, 5, (3,))
+    print(tensor1)
+    
+    # 生成一个形状为 (2, 3) 的张量，元素值在 [10, 20) 范围内
+    tensor2 = torch.randint(10, 20, (2, 3))
+    print(tensor2)
+    
+    # 指定数据类型为 torch.int32
+    tensor3 = torch.randint(0, 5, (3,), dtype=torch.int32)
+    print(tensor3)
+    
+    # 指定设备为 cuda
+    tensor4 = torch.randint(0, 5, (3,), device='cuda')
+    print(tensor4)
+    ```
+
+
+
+## torch.allclose
+
+- `torch.allclose` 是 PyTorch 中用于检查两个张量是否在某个容忍度范围内近似相等的函数
+
+- 签名
+
+  - ```python
+    torch.allclose(input, other, rtol=1e-05, atol=1e-08, equal_nan=False) → bool
+    ```
+
+- 参数说明
+
+  - **input** (Tensor)：第一个输入张量。
+  - **other** (Tensor)：第二个输入张量。
+  - **rtol** (float, 可选)：相对容忍度，默认为 1e-05。
+  - **atol** (float, 可选)：绝对容忍度，默认为 1e-08。
+  - **equal_nan** (bool, 可选)：如果为 `True`，则两个 `NaN` 值将被视为相等。默认为 `False`。
+
+- 返回值
+
+  - 一个布尔值，如果两个张量在容忍度范围内是近似的，则返回 `True`，否则返回 `False`。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 创建两个张量
+    a = torch.tensor([1.0, 2.0, 3.0])
+    b = torch.tensor([1.0, 2.001, 3.0])
+    
+    # 比较两个张量是否近似相等
+    print(torch.allclose(a, b, rtol=1e-03))  # 输出：True
+    print(torch.allclose(a, b, rtol=1e-05))  # 输出：False
+    
+    # 比较包含 NaN 值的张量
+    c = torch.tensor([1.0, float('nan')])
+    d = torch.tensor([1.0, float('nan')])
+    print(torch.allclose(c, d))  # 输出：False
+    print(torch.allclose(c, d, equal_nan=True))  # 输出：True
+    ```
+
+
+
+## torch.sqeeze
+
+- `squeeze` 方法用于去除张量中大小为 1 的维度
+
+- 签名
+
+  - ```python
+    torch.squeeze(input, dim=None) → Tensor
+    ```
+
+- 参数说明
+
+  - **input** (Tensor)：输入张量。
+  - **dim** (int, 可选)：指定要去除的维度。如果指定，则只去除该维度上的大小为 1 的维度。如果未指定，则去除所有大小为 1 的维度。
+
+- 返回
+
+  - 返回一个新的张量，其形状与输入张量相同，但所有大小为 1 的维度都被去除。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 创建一个形状为 (1, 3, 1, 4) 的张量
+    x = torch.randn(1, 3, 1, 4)
+    print("原始张量形状:", x.shape)
+    
+    # 去除所有大小为 1 的维度
+    y = torch.squeeze(x)
+    print("去除所有大小为 1 的维度后:", y.shape)
+    
+    # 只去除第 0 维度上的大小为 1 的维度
+    z = torch.squeeze(x, dim=0)
+    print("只去除第 0 维度上的大小为 1 的维度后:", z.shape)
+    ```
+
+
+
+## torch.unsqueeze
+
+- `unsqueeze` 方法用于在张量的指定位置插入一个大小为 1 的维度
+
+- 签名
+
+  - ```python
+    torch.unsqueeze(input, dim) → Tensor
+    ```
+
+- 参数说明
+
+  - **input** (Tensor)：输入张量。
+  - **dim** (int)：指定插入大小为 1 的维度的位置。
+
+- 返回值
+
+  - 返回一个新的张量，其形状与输入张量相同，但在指定位置插入了一个大小为 1 的维度。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 创建一个形状为 (3, 4) 的张量
+    x = torch.randn(3, 4)
+    print("原始张量形状:", x.shape)
+    
+    # 在第 0 维度前插入一个大小为 1 的维度
+    y = torch.unsqueeze(x, dim=0)
+    print("在第 0 维度前插入一个大小为 1 的维度后:", y.shape)
+    
+    # 在第 1 维度前插入一个大小为 1 的维度
+    z = torch.unsqueeze(x, dim=1)
+    print("在第 1 维度前插入一个大小为 1 的维度后:", z.shape)
+    
+    # 在第 2 维度前插入一个大小为 1 的维度
+    w = torch.unsqueeze(x, dim=2)
+    print("在第 2 维度前插入一个大小为 1 的维度后:", w.shape)
+    ```
+
+
+
+
+
+
+## torch.split
 
 - 在 PyTorch 中，`split` 方法用于将一个张量分割成多个较小的张量。这个方法非常有用，特别是在需要将一个大的张量分成多个部分进行处理时。`split` 方法可以沿着指定的维度进行分割，并且可以指定每个部分的大小。
 
@@ -97,6 +278,167 @@
     - 如果是 `int`，表示每个分割块的大小。输入张量将被分割成多个大小为 `split_size_or_sections` 的块，最后一个块的大小可能小于 `split_size_or_sections`。
     - 如果是 `list`，表示每个分割块的具体大小。输入张量将被分割成多个大小分别为 `list` 中指定的块。
   - **dim** (`int`, 默认值为 0): 沿着哪个维度进行分割。
+
+
+
+## torch  ：：
+
+- 切片操作 `::` 用于选择张量中的特定元素。切片操作的语法是 `tensor[start:stop:step]`
+  - `start`：起始索引（包含）。默认0
+  - `stop`：结束索引（不包含）。默认张量长度
+  - `step`：步长。默认1
+
+
+
+## 广播机制
+
+- 广播机制遵循以下三个主要规则：
+  1. **对齐维度**：如果两个张量的维度数不同，形状较小的张量会在前面补1，直到两个张量的维度数相同。
+  2. **扩展维度**：如果两个张量在某个维度上的大小不同，较小的张量会在该维度上进行扩展，使其大小与较大的张量相同。
+  3. **兼容性**：如果两个张量在某个维度上的大小相同，或者其中一个张量在该维度上的大小为1，则这两个张量在该维度上是兼容的。如果两个张量在所有维度上都是兼容的，则它们可以进行广播运算。
+
+
+
+## torch.size
+
+- `.size()` 方法可以接受一个参数，这个参数指定了要获取的特定维度的大小。这个参数是一个整数，表示张量的某个维度的索引。
+
+- 签名
+
+  - ```python
+    tensor.size(dim) → int
+    ```
+
+- 返回值
+
+  - 返回指定维度的大小，类型为 `int`。
+
+- **无参数**：`tensor.size()` 返回一个 `torch.Size` 对象，表示张量的形状。
+
+- **有参数**：`tensor.size(dim)` 返回一个 `int`，表示张量在指定维度 `dim` 上的大小。
+
+
+
+
+
+## torch.argsort
+
+- `argsort` 方法用于返回输入张量中元素的排序索引
+
+- 签名
+
+  - ```python
+    torch.argsort(input, dim=None, descending=False) → Tensor
+    ```
+
+- 参数说明
+
+  - **input** (Tensor)：输入张量。
+  - **dim** (int, 可选)：指定排序的维度。如果未指定，则将输入张量视为一维张量进行排序。默认为 `None`。
+  - **descending** (bool, 可选)：是否按降序排序。默认为 `False`，表示按升序排序。
+
+- 返回值
+
+  - 返回一个新的张量，包含输入张量中元素的排序索引。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 创建一个一维张量
+    x = torch.tensor([4, 1, 3, 2])
+    print("原始张量:", x)
+    
+    # 获取排序索引（升序）
+    indices = torch.argsort(x)
+    print("排序索引（升序）:", indices)
+    
+    # 使用排序索引重新排列张量
+    sorted_x = x[indices]
+    print("排序后的张量（升序）:", sorted_x)
+    
+    # 获取排序索引（降序）
+    indices_desc = torch.argsort(x, descending=True)
+    print("排序索引（降序）:", indices_desc)
+    
+    # 使用排序索引重新排列张量
+    sorted_x_desc = x[indices_desc]
+    print("排序后的张量（降序）:", sorted_x_desc)
+    
+    # 创建一个二维张量
+    y = torch.tensor([[4, 1, 3], [2, 3, 1]])
+    print("原始二维张量:\n", y)
+    
+    # 按最后一维排序（升序）
+    indices_y = torch.argsort(y, dim=-1)
+    print("按最后一维排序索引（升序）:\n", indices_y)
+    
+    # 使用排序索引重新排列张量
+    sorted_y = y.gather(dim=-1, index=indices_y)
+    print("按最后一维排序后的张量（升序）:\n", sorted_y)
+    ```
+
+
+
+## torch.arange
+
+- 用于生成等差数列
+
+- 签名
+
+  - ```python
+    torch.arange(start=0, end, step=1, *, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False) → Tensor
+    ```
+
+- 参数
+
+  - **start** (int, 可选)：生成序列的起始值，默认为0。
+  - **end** (int)：生成序列的结束值（不包含）。
+  - **step** (int, 可选)：生成序列的步长，默认为1。
+  - **out** (Tensor, 可选)：输出张量。如果指定，则将结果存储在该张量中，而不是创建一个新的张量。
+  - **dtype** (torch.dtype, 可选)：生成的张量的数据类型。如果未指定，则根据 `start`、`end` 和 `step` 的类型推断。
+  - **layout** (torch.layout, 可选)：张量的布局，默认为 `torch.strided`。
+  - **device** (torch.device, 可选)：生成的张量所在的设备，默认为CPU。
+  - **requires_grad** (bool, 可选)：是否为张量启用梯度计算，默认为 `False`。
+
+- 返回值
+
+  - 返回一个包含在 `[start, end)` 区间内均匀间隔值的张量。
+
+- 示例
+
+  - ```python
+    import torch
+    
+    # 生成一个从 0 到 9 的张量
+    x = torch.arange(10)
+    print("从 0 到 9 的张量:", x)
+    
+    # 生成一个从 1 到 10 的张量
+    y = torch.arange(1, 11)
+    print("从 1 到 10 的张量:", y)
+    
+    # 生成一个从 0 到 9，步长为 2 的张量
+    z = torch.arange(0, 10, 2)
+    print("从 0 到 9，步长为 2 的张量:", z)
+    
+    # 生成一个从 5 到 0，步长为 -1 的张量
+    w = torch.arange(5, 0, -1)
+    print("从 5 到 0，步长为 -1 的张量:", w)
+    
+    # 指定数据类型为 torch.float32
+    a = torch.arange(0, 10, dtype=torch.float32)
+    print("指定数据类型为 torch.float32 的张量:", a)
+    
+    # 指定设备为 cuda
+    b = torch.arange(0, 10, device='cuda')
+    print("指定设备为 cuda 的张量:", b)
+    ```
+
+
+
+
 
 ## X.contiguous().view(-1,d_model)
 
@@ -185,31 +527,32 @@
 ### nn.RNN
 
 - rnn 天然编码了位置信息
-    - $h_{t}=f(h_{t-1},x_t)$
-    - $f$ 是非线性激活函数，$h_{t-1}$ 是前一时间步的隐藏状态，$x_t$ 是当前时间步的输入。由于 $h_t$ 依赖于 $h_{t-1}$，而 $h_{t-1}$ 又依赖于 $h_{t-2}$，以此类推，隐藏状态包含了从初始时间步到当前时间步的所有历史信息。这种递归结构使得位置信息被隐式地编码在隐藏状态中。
-    - RNN 通过其递归结构隐式地编码位置信息，而 Transformer 需要通过**显式添加位置编码**来获取位置信息。
+
+  - $h_{t}=f(h_{t-1},x_t)$
+  - $f$ 是非线性激活函数，$h_{t-1}$ 是前一时间步的隐藏状态，$x_t$ 是当前时间步的输入。由于 $h_t$ 依赖于 $h_{t-1}$，而 $h_{t-1}$ 又依赖于 $h_{t-2}$，以此类推，隐藏状态包含了从初始时间步到当前时间步的所有历史信息。这种递归结构使得位置信息被隐式地编码在隐藏状态中。
+  - RNN 通过其递归结构隐式地编码位置信息，而 Transformer 需要通过**显式添加位置编码**来获取位置信息。
 
 - 签名
 
-    - ```python
-        torch.nn.RNN(input_size, hidden_size, num_layers=1, nonlinearity='tanh', bias=True, batch_first=False, dropout=0, bidirectional=False)
-        ```
+  - ```python
+    torch.nn.RNN(input_size, hidden_size, num_layers=1, nonlinearity='tanh', bias=True, batch_first=False, dropout=0, bidirectional=False)
+    ```
 
 - 参数说明
 
-    - **input_size**（int）：输入特征的维度。例如，对于文本数据，如果每个词用 100 维的向量表示，则 `input_size` 为 100。
-    - **hidden_size**（int）：隐藏层的特征维度。这是 RNN 单元内部状态的维度。
-    - **num_layers**（int，可选）：RNN 的层数。默认为 1。多层 RNN 可以增加模型的复杂度和表达能力。
-    - **nonlinearity**（str，可选）：非线性激活函数。可以是 `'tanh'` 或 `'relu'`。默认为 `'tanh'`。
-    - **bias**（bool，可选）：是否在 RNN 单元中使用偏置项。默认为 `True`。
-    - **batch_first**（bool，可选）：如果为 `True`，则输入和输出张量的形状为 `(batch, seq, feature)`，否则为 `(seq, batch, feature)`。默认为 `False`。
-    - **dropout**（float，可选）：如果非零，则在 RNN 的每一层之间引入 Dropout 层，以防止过拟合。默认为 0。
-    - **bidirectional**（bool，可选）：如果为 `True`，则使用双向 RNN。默认为 `False`。
+  - **input_size**（int）：输入特征的维度。例如，对于文本数据，如果每个词用 100 维的向量表示，则 `input_size` 为 100。
+  - **hidden_size**（int）：隐藏层的特征维度。这是 RNN 单元内部状态的维度。
+  - **num_layers**（int，可选）：RNN 的层数。默认为 1。多层 RNN 可以增加模型的复杂度和表达能力。
+  - **nonlinearity**（str，可选）：非线性激活函数。可以是 `'tanh'` 或 `'relu'`。默认为 `'tanh'`。
+  - **bias**（bool，可选）：是否在 RNN 单元中使用偏置项。默认为 `True`。
+  - **batch_first**（bool，可选）：如果为 `True`，则输入和输出张量的形状为 `(batch, seq, feature)`，否则为 `(seq, batch, feature)`。默认为 `False`。
+  - **dropout**（float，可选）：如果非零，则在 RNN 的每一层之间引入 Dropout 层，以防止过拟合。默认为 0。
+  - **bidirectional**（bool，可选）：如果为 `True`，则使用双向 RNN。默认为 `False`。
 
 - 返回值
 
-    - **output**（Tensor）：RNN 的输出。形状为 `(seq_len, batch, num_directions * hidden_size)` 或 `(batch, seq_len, num_directions * hidden_size)`，取决于 `batch_first` 参数。
-    - **h_n**（Tensor）：最后一个时间步的隐藏状态。形状为 `(num_layers * num_directions, batch, hidden_size)`。
+  - **output**（Tensor）：RNN 的输出。形状为 `(seq_len, batch, num_directions * hidden_size)` 或 `(batch, seq_len, num_directions * hidden_size)`，取决于 `batch_first` 参数。
+  - **h_n**（Tensor）：最后一个时间步的隐藏状态。形状为 `(num_layers * num_directions, batch, hidden_size)`。
 
 
 
@@ -299,7 +642,7 @@
   ```
 
 - 计算公式是$Y=XW^T+b$
-  
+
 - 参数说明
 
   - **input** (`Tensor`): 输入张量，形状为 `(N, *, in_features)`，其中 `*` 表示任意数量的额外维度。
