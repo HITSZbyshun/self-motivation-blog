@@ -461,6 +461,49 @@
 
 `import torch.nn.functional as F`
 
+
+
+### nn.module
+
+- `nn.Module` 是所有神经网络模块的基类
+
+- 一个典型的 `nn.Module` 子类通常包含以下部分：
+
+  1. **初始化方法 (`__init__`)**：在初始化方法中定义模型的各个组件，如层、参数等。
+  2. **前向传播方法 (`forward`)**：定义模型的前向传播逻辑，即如何将输入数据转换为输出数据。
+
+- 示例
+
+  - ```python
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
+    
+    class SimpleModel(nn.Module):
+        def __init__(self):
+            super(SimpleModel, self).__init__() 
+            #super(SimpleModel, self).__init__()：调用父类 nn.Module 的初始化方法，确保所有基类的初始化逻辑都被正确执行。
+            # 定义模型的层
+            self.fc1 = nn.Linear(784, 128)  # 输入层到隐藏层
+            self.fc2 = nn.Linear(128, 10)   # 隐藏层到输出层
+    
+        def forward(self, x):
+            # 定义前向传播逻辑
+            x = F.relu(self.fc1(x))  # 激活函数
+            x = self.fc2(x)
+            return x
+    
+    # 创建模型实例
+    model = SimpleModel()
+    
+    # 打印模型结构
+    print(model)
+    ```
+
+  - 
+
+
+
 ### nn.TransformerEncoderLayer
 
 - 作用简介
@@ -556,7 +599,7 @@
 
 
 
-## nn.Embedding
+### nn.Embedding
 
 - 创建嵌入层的模块。嵌入层通常用于将离散的输入（如单词索引）转换为连续的向量表示
 
