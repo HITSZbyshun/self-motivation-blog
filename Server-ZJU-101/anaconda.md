@@ -89,3 +89,14 @@ conda remove -n  需要删除的环境名 --all
   - `tar -xzvf <env-name>.tar.gz -C /home/<user-name>/anaconda or miniconda/envs/<env-name>`
 - 已经拷贝完毕了，可以查看结果
   - `conda info -e`
+
+
+
+
+
+tar -xzvf lm_eval.tar.gz -C /home/yuanxin/anaconda or miniconda/envs/<env-name>
+
+cp -r /public/experiments/wjt/llama/llama1-7b /public/experiments/yx/models_ori/LL
+
+
+
