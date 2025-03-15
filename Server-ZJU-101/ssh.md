@@ -83,7 +83,7 @@
   - ```bash
     # 我的配置
     Host 101-3090
-        HostName 10.12.218.211
+        HostName 
         User yuanxin
         BindAddress 10.192.198.188
         Port 23422

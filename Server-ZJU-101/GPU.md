@@ -12,6 +12,12 @@
 
 
 
+借7天
+
+`srun -N 1 --pty --cpus-per-task=4 -t 7-00:00:00 -p gpu-3 --gres=gpu:1 /bin/bash -i`
+
+
+
 ## 显示借用
 
 `squeue`
@@ -23,3 +29,16 @@
 - `scancel 10`: 取消`JOBID`为10的任务组中的全部作业
 - `scancel 10_[1-2]`: 取消`JOBID`为10的任务组中`TASK_ID`为1和2的作业
 - `scancel 10_0 10_2`: 取消`JOBID`为10的任务组中 `TASK_ID`为0和2的作业
+
+
+
+
+
+## 再次进入gpu
+
+`ssh node85`
+
+一般而言
+
+- tmux 开一个borrow_gpu
+- tmux 开一个paper_reproduction，这里面用ssh node85
