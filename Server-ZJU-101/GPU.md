@@ -4,7 +4,7 @@
 
 ## 借用显卡
 
-- 命令行交互式借用显卡`srun -N 1 --pty --cpus-per-task=4 -t 5:00 -p gpu-3 --gres=gpu:1 /bin/bash -i`
+- 命令行交互式借用显卡`srun -N 1 --pty --cpus-per-task=4 -t 7-00:00:00 -p gpu-3 --gres=gpu:2 /bin/bash -i`
 
   - `-t 5:00` 代表借用5分钟，`-t 7-00:00:00` 代表借用7天
   - `-p gpu-3` 代表借用3090，`gpu-2` 2080 `gpu-1` 1080
