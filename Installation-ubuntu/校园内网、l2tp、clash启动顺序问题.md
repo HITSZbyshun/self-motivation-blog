@@ -44,8 +44,8 @@ WantedBy=multi-user.target
 
 2、启用服务
 
-`sudo systemctl restart l2tp-vpn-autoconnect.service`
-`sudo systemctl status l2tp-vpn-autoconnect.service`
+`sudo systemctl enable l2tp-vpn-autoconnect.service`
+`sudo systemctl start l2tp-vpn-autoconnect.service`
 
 3、clash 设置开机自启动
 
