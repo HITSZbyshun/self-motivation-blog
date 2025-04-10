@@ -54,3 +54,37 @@ sudo docker run --rm --device /dev/net/tun --cap-add NET_ADMIN -ti -p 127.0.0.1:
   - 外网ip走代理
   - 国内ip走直连
   - 172.20.137.99ip走easyconnect
+
+
+
+## 运行
+
+```` bash
+sbatch -N 1 -p zjhu -t 7-00:00:00 --cpus-per-task=3 --gres=gpu:4090:2 ./run1.sh 
+````
+
+
+
+## 查看运行情况
+
+``` bash
+squeue -u weijiateng2023
+squeue -j 78027
+```
+
+
+
+## 查看结果
+
+``` bash
+ cat slurm-78027.out
+```
+
+
+
+## 查看显卡占用显存情况
+
+``` bash\
+ srun --jobid=77795 --overlap --pty nvidia-smi
+```
+
