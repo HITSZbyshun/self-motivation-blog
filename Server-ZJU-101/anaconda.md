@@ -92,11 +92,58 @@ conda remove -n  需要删除的环境名 --all
 
 
 
+## 修改镜像源
+
+``` bash
+# 添加清华conda镜像源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+
+# 设置搜索时显示通道地址
+conda config --set show_channel_urls yes
+
+# 移除默认源（可选）
+conda config --remove channels defaults
 
 
-tar -xzvf lm_eval.tar.gz -C /home/yuanxin/anaconda or miniconda/envs/<env-name>
 
-cp -r /public/experiments/wjt/llama/llama1-7b /public/experiments/yx/models_ori/LL
+
+
+######### 例如ping不通清华源，就换源
+
+conda config --remove-key channels  # 先清除现有配置
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+conda config --set show_channel_urls yes
+
+```
+
+
+
+``` bash
+# 创建pip配置目录
+mkdir -p ~/.pip
+
+# 编辑pip配置文件
+cat > ~/.pip/pip.conf <<EOF
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+trusted-host = pypi.tuna.tsinghua.edu.cn
+EOF
+
+
+## 再修改换源
+vim ~/.pip/pip.conf
+
+[global]
+index-url = https://pypi.mirrors.ustc.edu.cn/simple  
+trusted-host = pypi.mirrors.ustc.edu.cn  
+```
+
+
 
 
 
