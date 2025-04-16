@@ -1,0 +1,6 @@
+[submodule "03_AI_Learning/LearningPytorchls"]
+	path = 03_AI_Learning/LearningPytorchls
+	url = https://github.com/HITSZbyshun/LearningPytorch.git
+[submodule "03_AI_Learning/LearningPytorch"]
+	path = 03_AI_Learning/LearningPytorch
+	url = https://github.com/HITSZbyshun/LearningPytorch.git
