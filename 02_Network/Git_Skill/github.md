@@ -88,9 +88,50 @@ git pull origin main --allow-unrelated-histories
 
 ##  Git Submodule
 
+
+
+### 1. 添加子模块
+
 ```bash
-# 在 A 仓库目录下
+# 在 A 仓库的根目录下执行
 git submodule add https://github.com/你的用户名/B仓库.git 目标路径
+
+# 示例：将 B 仓库作为 lib/B 添加到 A 仓库
+git submodule add https://github.com/yourname/B.git lib/B
+```
+
+
+
+### 2. 提交变更
+
+```bash
 git commit -m "添加 B 仓库作为子模块"
 git push
 ```
+
+
+
+### 3. 克隆包含子模块的仓库
+
+
+
+当其他人克隆你的 A 仓库时，需要额外步骤初始化子模块：
+
+```bash
+git clone https://github.com/你的用户名/A仓库.git
+cd A仓库
+git submodule init  # 初始化子模块配置
+git submodule update  # 检出子模块内容
+
+# 或者使用组合命令
+git clone --recurse-submodules https://github.com/你的用户名/A仓库.git
+```
+
+
+
+### 4.删除错误的submodule
+
+``` bash
+git submodule deinit -f 03_AI_Learning/LearningPytorchls                                                     
+```
+
