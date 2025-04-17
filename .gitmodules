@@ -1,18 +1,24 @@
 [submodule "03_AI_Learning/LearningPytorchls"]
 	path = 03_AI_Learning/LearningPytorchls
 	url = https://github.com/HITSZbyshun/LearningPytorch.git
+	branch = main
 [submodule "03_AI_Learning/LearningPytorch"]
 	path = 03_AI_Learning/LearningPytorch
 	url = https://github.com/HITSZbyshun/LearningPytorch.git
+	branch = main
 [submodule "03_AI_Learning/LearningHF"]
 	path = 03_AI_Learning/LearningHF
 	url = https://github.com/HITSZbyshun/LearningHF.git
+	branch = main
 [submodule "03_AI_Learning/WrittingNNs"]
 	path = 03_AI_Learning/WrittingNNs
 	url = https://github.com/HITSZbyshun/WrittingNNs.git
+	branch = main
 [submodule "04_Coding_Learning/LearningPython"]
 	path = 04_Coding_Learning/LearningPython
 	url = https://github.com/HITSZbyshun/LearningPython.git
+	branch = main
 [submodule "02_Network/VPN_Rule"]
 	path = 02_Network/VPN_Rule
 	url = https://github.com/HITSZbyshun/VPN_Rule.git
+	branch = main
